@@ -1,18 +1,22 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    首页
+    <van-button type="primary">主要按钮</van-button>
+    <van-stepper v-model="value" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
+  data() {
+    return {
+      value: 1,
+    };
+  },
   components: {
-    HelloWorld
+    
   }
 }
 </script>
