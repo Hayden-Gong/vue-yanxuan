@@ -1,7 +1,7 @@
 <template>
     <div class="search-popup">
         <van-search
-            v-model="searchvalue"
+            v-model="searchVal"
             show-action
             :placeholder="placeholderVal"
             @search="onSearchEnter"
@@ -41,7 +41,7 @@ import { GetHisHotData, GetSearchTipsData, GetSearchData } from '@/http/api'
 export default {
     data () {
         return {
-            searchvalue: '',
+            searchVal: '',
             blockShow: 1,
             placeholderVal: '',
             historyKeywordList: [],
@@ -69,12 +69,12 @@ export default {
         ...mapMutations({
             updateIsShowShadow: 'showshadow/updateIsShowShadow'
         }),
-        onSearchEnter(val){
-            // 使用搜索栏时重置筛选条件
+        onSearchEnter(){
+            // 使用搜索栏搜索时重置筛选条件
             this.order = 'desc'
             this.categoryId = 0
             this.sort = 'id'
-            this.onSearch(val)
+            this.onSearch(this.searchVal)
             
         },
         onSearch(val) {
@@ -122,7 +122,7 @@ export default {
             this.onSearch(this.searchVal)
         },
         tagClick(val){
-            this.searchVal=val
+            this.searchVal=val;
             this.onSearch(this.searchVal)
         },
     },

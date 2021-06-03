@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="user_top" @click="showLoginModal">
-            <img src="../assets/avatar.png" alt="">
-            <h3>点击登录</h3>
-            <i class="van-icon van-icon-arrow"></i>
+        <div class="user_top">
+            <img :src="avatarSrc" alt="" @click="showLoginModal">
+            <h3 @click="showLoginModal">{{nickname}}</h3>
+            <van-icon :name="logIcon" @click="showLogoutModal" />
         </div>
         
         <van-grid :column-num="3" square>
@@ -15,6 +15,7 @@
             />
         </van-grid>
 
+        <!-- 登录弹出层 -->
         <van-popup v-model="isShowLoginModal">
             <van-form @submit="onSubmit">
             <van-field
@@ -37,11 +38,17 @@
             </div>
             </van-form>
         </van-popup>
+
+        <!-- 退出确认框 -->
+        <van-dialog v-model="isShowLogoutModal" title="登出确认框" show-cancel-button @confirm="onLogout">
+            <div style="text-align:center;padding:20px 0;">确定退出登录吗?</div>
+        </van-dialog>
     </div>
 </template>
 
 <script>
 import { LoginByWeb } from '@/http/api'
+import avatarSrc from '@/assets/avatar.png'
 export default {
     data () {
         return {
@@ -59,20 +66,69 @@ export default {
                 { title:'意见反馈', icon: 'smile-comment-o' }
             ],
             isShowLoginModal: false,
+            isShowLogoutModal: false,
             username: '',
-            password: ''
+            password: '',
+            avatarSrc: avatarSrc,
+            nickname: '点击登录',
+            logIcon: 'arrow'
         }
     },
     methods: {
         showLoginModal(){
+            if(localStorage.getItem("token"))
+                return
+            // 展示登录框
             this.isShowLoginModal = true
+        },
+        showLogoutModal(){
+            if(!localStorage.getItem("token")){
+                this.isShowLoginModal = true
+                return
+            }
+            // 展示登出框
+            this.isShowLogoutModal = true
         },
         onSubmit(values) {
             console.log('submit', values);
             LoginByWeb(values).then(res=>{
-                console.log(res);
+                let userInfo = res.data.userInfo
+                // 登录成功后的业务逻辑
+                // 1 提示用户登录成功
+                this.$toast.success("登录成功！")
+                // 2 保存token值和用户常用信息到本地
+                localStorage.setItem("token", res.data.token)
+                localStorage.setItem("userInfo", JSON.stringify(userInfo))
+                setTimeout(() => {
+                    // 3 关闭登录窗口
+                    this.isShowLoginModal = false;
+                // 4 把用户信息渲染到页面上
+                this.avatarSrc = userInfo.avatar
+                this.nickname = userInfo.nickname
+                this.logIcon = "cross"
+                }, 500);
             })
         },
+        onLogout(){
+            this.$toast.success("退出成功！")
+            setTimeout(() => {
+                localStorage.removeItem("token")
+                localStorage.removeItem("userInfo")
+                this.avatarSrc = avatarSrc
+                this.nickname = "点击登录"
+                this.logIcon = "arrow"
+            }, 500);
+        }
+    },
+    created(){
+        // 页面刷新时判断用户是否登录
+        let token = localStorage.getItem("token")
+        if(token){
+            let userInfo = JSON.parse(localStorage.getItem("userInfo"))
+            this.avatarSrc = userInfo.avatar
+            this.nickname = userInfo.nickname
+            this.logIcon = "cross"
+        }
     }
 }
 </script>

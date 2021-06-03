@@ -20,7 +20,8 @@ import {
     Popup,
     Form,
     Field,
-    Button
+    Button,
+    Dialog
 } from 'vant';
 
 // 引入样式
@@ -48,3 +49,4 @@ Vue.use(Popup);
 Vue.use(Form);
 Vue.use(Field);
 Vue.use(Button);
+Vue.use(Dialog);

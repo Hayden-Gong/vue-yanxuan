@@ -4,7 +4,6 @@
       <div v-if="$route.path === '/home'">
         <!-- 顶部搜索栏 -->
         <van-search
-          v-model="searchValue"
           shape="round"
           placeholder="搜索商品"
           disabled
@@ -55,7 +54,6 @@ import { GetHomeData } from '@/http/api'
     name: 'Home',
     data() {
       return {
-        searchValue: "",
         bannerData: [],
         channelData: [],
         brandListData: []
