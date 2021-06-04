@@ -34,6 +34,7 @@ export default {
             ClearHisData().then(res=>{
                 // 成功通知
                 this.$toast.success('清除成功');
+                this.$router.go(0)
             })
         },
         tagClick(val){

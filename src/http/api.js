@@ -16,3 +16,7 @@ export const ClearHisData = () => axios.post('/search/clearhistory')
 export const GetSearchData = (params) => axios.get("/goods/list",{ params });
 // 注册或登录
 export const LoginByWeb = (params) => axios.post("/auth/loginByWeb", params);
+// 产品明细
+export const GetProductDetail = (params) => axios.get("/goods/detail", { params });
+// 相关产品
+export const GetRelated = (params) => axios.get("/goods/related", { params });

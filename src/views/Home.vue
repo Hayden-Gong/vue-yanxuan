@@ -81,7 +81,7 @@ import { GetHomeData } from '@/http/api'
       enterSearch(){
         this.$router.push('/home/searchpopup')
         this.updateIsShowShadow(true)
-      },
+      }
     },
     components: {
       

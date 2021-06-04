@@ -14,5 +14,5 @@ new Vue({
 }).$mount('#app')
 
 Vue.filter("RMBformat",val=>{
-  return "￥ "+val.toFixed(2)+" 元"
+  return "￥ "+Number(val).toFixed(2)+" 元"
 })

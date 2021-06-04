@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <router-view />
-    <AppTabbar />
+    <!-- 在某些页面不需要tabbar -->
+    <AppTabbar v-if="$route.meta.isShowTabbar" />
   </div>
 </template>
 

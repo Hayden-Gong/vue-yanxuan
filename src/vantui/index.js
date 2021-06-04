@@ -13,6 +13,7 @@ import {
     Tag,
     List,
     Cell,
+    CellGroup,
     DropdownMenu,
     DropdownItem,
     Empty,
@@ -21,7 +22,14 @@ import {
     Form,
     Field,
     Button,
-    Dialog
+    Dialog,
+    Lazyload,
+    Col,
+    Row,
+    Divider,
+    GoodsAction, 
+    GoodsActionIcon, 
+    GoodsActionButton
 } from 'vant';
 
 // 引入样式
@@ -41,6 +49,7 @@ Vue.use(Icon);
 Vue.use(Tag);
 Vue.use(List);
 Vue.use(Cell);
+Vue.use(CellGroup);
 Vue.use(DropdownMenu);
 Vue.use(DropdownItem);
 Vue.use(Empty);
@@ -50,3 +59,10 @@ Vue.use(Form);
 Vue.use(Field);
 Vue.use(Button);
 Vue.use(Dialog);
+Vue.use(Lazyload);
+Vue.use(Col);
+Vue.use(Row);
+Vue.use(Divider);
+Vue.use(GoodsAction);
+Vue.use(GoodsActionIcon);
+Vue.use(GoodsActionButton);

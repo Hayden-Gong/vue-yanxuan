@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul>
-            <li v-for="(item) in goodsList" :key="item.id">
+            <li v-for="(item) in goodsList" :key="item.id" @click="goTODetail(item.id)">
                 <img :src="item.list_pic_url || imgSrc" style="display:block;" width="100%" alt="" />
                 <div class="van-ellipsis">{{item.name}}</div>
                 <div class="price">{{item.retail_price | RMBformat}}</div>
@@ -16,6 +16,11 @@ export default {
     data () {
         return {
             imgSrc:require("@/assets/avatar.png")
+        }
+    },
+    methods:{
+        goTODetail(id){
+            this.$router.push("/detail?id="+id)
         }
     }
 }

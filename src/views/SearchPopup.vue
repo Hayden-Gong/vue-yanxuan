@@ -5,9 +5,14 @@
             show-action
             :placeholder="placeholderVal"
             @search="onSearchEnter"
-            @cancel="onCancel"
             @input="onInput"
-        />
+        >
+            <!-- @cancel="onCancel" @cancel 默认清空搜索栏内容 -->
+            <!-- 使用#action 自定义右侧按钮的内容 使用插槽后，cancel 事件将不再触发 -->
+            <template #action>
+                <div @click="onCancel">取消</div>
+            </template>
+        </van-search>
 
         <!-- 底下组件展示3个界面之一 -->
         <HistoryHot
@@ -96,6 +101,11 @@ export default {
             })
         },
         onCancel() {
+            if(this.blockShow !== 1){
+                this.blockShow = 1
+                return
+            }
+
             this.$router.go(-1)
             // this.updateIsShowShadow(false)
         },
@@ -110,6 +120,7 @@ export default {
                 }
             })
 
+            // 搜索栏为空时返回历史记录页
             if(val=='') this.blockShow = 1
         },
         categoryChange(val){

@@ -26,7 +26,32 @@ const routes = [
       }
     ],
     meta: {
-      tabbarActiveNum: 0
+      tabbarActiveNum: 0,
+      isShowTabbar: true
+    }
+  },
+  {
+    path: '/topic',
+    component: () => import(/* webpackChunkName: "topic" */ '../views/Topic.vue'),
+    meta: {
+      tabbarActiveNum: 1,
+      isShowTabbar: true
+    }
+  },
+  {
+    path: '/category',
+    component: () => import(/* webpackChunkName: "category" */ '../views/Category.vue'),
+    meta: {
+      tabbarActiveNum: 2,
+      isShowTabbar: true
+    }
+  },
+  {
+    path: '/cart',
+    component: () => import(/* webpackChunkName: "cart" */ '../views/Cart.vue'),
+    meta: {
+      tabbarActiveNum: 3,
+      isShowTabbar: true
     }
   },
   {
@@ -34,28 +59,17 @@ const routes = [
     name: 'Mine',
     component: () => import(/* webpackChunkName: "mine" */ '../views/Mine.vue'),
     meta: {
-      tabbarActiveNum: 4
+      tabbarActiveNum: 4,
+      isShowTabbar: true
     }
   },
+  // 商品详情
   {
-    path: '/topic',
-    component: () => import(/* webpackChunkName: "topic" */ '../views/Topic.vue'),
+    path: '/detail',
+    component: () => import(/* webpackChunkName: "goodsdetail" */ '../views/Detail.vue'),
     meta: {
-      tabbarActiveNum: 1
-    }
-  },
-  {
-    path: '/category',
-    component: () => import(/* webpackChunkName: "category" */ '../views/Category.vue'),
-    meta: {
-      tabbarActiveNum: 2
-    }
-  },
-  {
-    path: '/cart',
-    component: () => import(/* webpackChunkName: "cart" */ '../views/Cart.vue'),
-    meta: {
-      tabbarActiveNum: 3
+      tabbarActiveNum: 4,
+      isShowTabbar: false
     }
   }
 ]
