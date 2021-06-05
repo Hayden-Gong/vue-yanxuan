@@ -32,3 +32,11 @@ export const CheckCartProduct = (params) => axios.post('/cart/checked', params)
 export const DeleteCartProduct = (params) => axios.post("/cart/delete", params);
 // 商品步进器
 export const UpdateStepper = (params) => axios.post('/cart/update', params)
+// 请求专题页面数据
+export const GetTopicData = (params) => axios.get('/topic/list', params)
+// 获取大分类数据
+export const GetCategoryData = () => axios.get('/catalog/index')
+// 获取小分类数据
+export const GetCurrentCategory = (val) => axios.get('/catalog/current', { 
+    params:{ id: val }
+})

@@ -1,5 +1,13 @@
 <template>
   <div>
+    <!-- navbar -->
+    <van-nav-bar
+      title="标题"
+      left-text="返回"
+      left-arrow
+      @click-left="$router.go(-1)"
+    />
+
     <!-- 轮播图 -->
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
       <van-swipe-item v-for="(item, index) in goodsGallery" :key="index">

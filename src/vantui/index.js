@@ -37,7 +37,8 @@ import {
     SubmitBar,
     Stepper,
     SwipeCell,
-    NavBar
+    NavBar,
+    TreeSelect
 } from 'vant';
 
 // 引入样式
@@ -82,3 +83,4 @@ Vue.use(SubmitBar);
 Vue.use(Stepper);
 Vue.use(SwipeCell);
 Vue.use(NavBar);
+Vue.use(TreeSelect);

@@ -23,13 +23,65 @@
         </van-grid>
 
         <!-- 供应商栏 -->
-        <van-grid :column-num="2">
-          <van-grid-item v-for="(item,index) in brandListData" :key="index" :text="item.name">
-            <van-image :src="item.pic_url" />
-          </van-grid-item>
-        </van-grid>
+        <div class="brand">
+          <div class="home_title">品牌制造商直供</div>
+          <ul>
+            <li v-for="item in brandListData" :key="item.id">
+              <img :src="item.pic_url" alt="">
+              <h4>{{item.name}}</h4>
+              <p>{{item.floor_price | RMBformat}}</p>
+            </li>
+          </ul>
+        </div>
 
+        <!-- 新品首发 -->
+        <div class="new">
+          <div class="home_title">周一周四·新品首发</div>
+          <ul class="product_list">
+            <li v-for="item in newGoodsList" :key="item.id">
+              <img :src="item.list_pic_url" alt="">
+              <div>{{item.name}}</div>
+              <section>{{item.retail_price | RMBformat}}</section>
+            </li>
+          </ul>
+        </div>
 
+        <!-- 人气推荐 -->
+        <div class="hot">
+          <div class="home_title">人气推荐</div>
+            <van-card
+              v-for="item in hotGoodsList"
+              :key="item.id"
+              :price="item.retail_price.toFixed(2)"
+              :desc="item.goods_brief"
+              :title="item.name"
+              :thumb="item.list_pic_url"
+            />
+        </div>
+
+        <!-- 专题精选 -->
+        <div class="topic">
+          <div class="home_title">专题精选</div>
+          <van-swipe :loop="false" :width="300" :show-indicators=false>
+            <van-swipe-item v-for="item in topicList" :key="item.id">
+              <img :src="item.item_pic_url" alt="" style="width:100%;height:2rem">
+              <p class="title">{{item.title}}</p>
+              <p class="subtitle">{{item.subtitle}}</p>
+            </van-swipe-item>
+          </van-swipe>
+        </div>
+
+        <!-- 分类商品展示 -->
+        <div class="category" v-for="item in categoryList" :key="item.id">
+          <div class="home_title">{{item.name}}</div>
+          <ul class="product_list">
+            <li v-for="goods in item.goodsList" :key="goods.id">
+              <img :src="goods.list_pic_url" alt="">
+              <div>{{goods.name}}</div>
+              <section>{{goods.retail_price | RMBformat}}</section>
+            </li>
+          </ul>
+        </div>
       </div>
     </transition>
     
@@ -56,15 +108,23 @@ import { GetHomeData } from '@/http/api'
       return {
         bannerData: [],
         channelData: [],
-        brandListData: []
+        brandListData: [],
+        newGoodsList: [],
+        hotGoodsList: [],
+        topicList: [],
+        categoryList: [],
       };
     },
     created(){
       GetHomeData().then(res=>{
-        let { banner, channel, brandList } = res.data
+        let { banner, channel, brandList, newGoodsList, hotGoodsList, topicList, categoryList } = res.data
         this.bannerData = banner
         this.channelData = channel
         this.brandListData = brandList
+        this.newGoodsList = newGoodsList
+        this.hotGoodsList = hotGoodsList
+        this.topicList = topicList
+        this.categoryList = categoryList
       }).catch(err=>{
         console.log(err);
       })
@@ -101,7 +161,10 @@ import { GetHomeData } from '@/http/api'
   }
 </script>
 
-<style>
+<style lang = "less" scoped>
+  .home {
+    padding-bottom: .5rem;
+  }
   /* vue动画 */
   /* v-enter / v-leave v是transition标签设置的name值 */
   
@@ -126,5 +189,91 @@ import { GetHomeData } from '@/http/api'
     left: 0;
     top: 0;
     background-color: rgba(0,0,0,0.8);
+  }
+  .home_title {
+    text-align: center;
+    line-height: .5rem;
+    font-size: .2rem;
+  }
+  .brand {
+    margin: .2rem 0;
+    background-color: #fff;
+    font-size: .14rem;
+    ul {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      li {
+        width: 49%;
+        position: relative;
+        img {
+          width: 100%;
+        }
+        h4 {
+          position: absolute;
+          top: .15rem;
+          left: .1rem;
+        }
+        p {
+          position: absolute;
+          top: .4rem;
+          left: .1rem;
+          color: #8b0000;
+        }
+      }
+    }
+  }
+  .new {
+    background-color: #fff;
+    padding-top: .1rem;
+  }
+  .product_list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    text-align: center;
+    padding: .1rem;
+    li {
+      width: 49%;
+      img {
+        width: 100%;
+      }
+      section {
+        margin-top: 5px;
+        color: darkred;
+      }
+    }
+  }
+  .hot {
+    margin-top: 10px;
+    background-color: white;
+    font-size: .12rem;
+    .van-card__content {
+      box-sizing: border-box;
+      padding-top: .08rem;
+      .van-card__title {
+        font-size: .18rem;
+      }
+      .van-card__desc {
+        padding-top: .1rem;
+        font-size: .14rem;
+      }
+    }
+  }
+  .topic {
+    background-color: #fff;
+    margin-top: .2rem;
+    padding: 0 .08rem;
+    .van-swipe-item {
+      padding: .08rem;
+      box-sizing: border-box;
+    }
+    p {
+      line-height: .2rem;
+    }
+  }
+  .category {
+    background-color: #fff;
+    padding-top: .2rem;
   }
 </style>
