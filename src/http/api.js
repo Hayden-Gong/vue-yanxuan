@@ -20,3 +20,15 @@ export const LoginByWeb = (params) => axios.post("/auth/loginByWeb", params);
 export const GetProductDetail = (params) => axios.get("/goods/detail", { params });
 // 相关产品
 export const GetRelated = (params) => axios.get("/goods/related", { params });
+// 购物车数量
+export const GetCartCount = () => axios.get('/cart/goodscount')
+// 加入购物车
+export const AddToCart = (params) => axios.post('/cart/add', params)
+// 获取购物车数据
+export const GetCartData = (params) => axios.get("/cart/index",{ params });
+// 切换购物车商品选中状态
+export const CheckCartProduct = (params) => axios.post('/cart/checked', params)
+// 删除购物车商品
+export const DeleteCartProduct = (params) => axios.post("/cart/delete", params);
+// 商品步进器
+export const UpdateStepper = (params) => axios.post('/cart/update', params)

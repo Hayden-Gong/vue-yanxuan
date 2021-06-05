@@ -49,6 +49,7 @@
 <script>
 import { LoginByWeb } from '@/http/api'
 import avatarSrc from '@/assets/avatar.png'
+import { mapMutations, mapState } from 'vuex'
 export default {
     data () {
         return {
@@ -74,7 +75,15 @@ export default {
             logIcon: 'arrow'
         }
     },
+    computed:{
+        ...mapState({
+            isForceLogin: state=>state.isForceLogin.isForceLogin
+        })
+    },
     methods: {
+        ...mapMutations({
+            updateIsForceLogin: 'isForceLogin/updateIsForceLogin'
+        }),
         showLoginModal(){
             if(localStorage.getItem("token"))
                 return
@@ -102,10 +111,16 @@ export default {
                 setTimeout(() => {
                     // 3 关闭登录窗口
                     this.isShowLoginModal = false;
-                // 4 把用户信息渲染到页面上
-                this.avatarSrc = userInfo.avatar
-                this.nickname = userInfo.nickname
-                this.logIcon = "cross"
+                    // 4 把用户信息渲染到页面上
+                    this.avatarSrc = userInfo.avatar
+                    this.nickname = userInfo.nickname
+                    this.logIcon = "cross"
+
+                    // 强制登录-登录成功后回到上一个页面
+                    if(this.isForceLogin){
+                        this.$router.go(-1)
+                        this.updateIsForceLogin(false)
+                    }
                 }, 500);
             })
         },

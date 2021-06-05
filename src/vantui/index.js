@@ -29,7 +29,15 @@ import {
     Divider,
     GoodsAction, 
     GoodsActionIcon, 
-    GoodsActionButton
+    GoodsActionButton,
+    Sku,
+    Checkbox,
+    CheckboxGroup,
+    Card,
+    SubmitBar,
+    Stepper,
+    SwipeCell,
+    NavBar
 } from 'vant';
 
 // 引入样式
@@ -66,3 +74,11 @@ Vue.use(Divider);
 Vue.use(GoodsAction);
 Vue.use(GoodsActionIcon);
 Vue.use(GoodsActionButton);
+Vue.use(Sku);
+Vue.use(Checkbox);
+Vue.use(CheckboxGroup);
+Vue.use(Card);
+Vue.use(SubmitBar);
+Vue.use(Stepper);
+Vue.use(SwipeCell);
+Vue.use(NavBar);

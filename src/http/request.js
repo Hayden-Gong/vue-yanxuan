@@ -12,10 +12,11 @@ instance.interceptors.request.use(config=>{
 
     // 在这里可以做一些发送请求前的准备工作
     // 把token添加请求头
-    // let token = localStorage.getItem("token")
-    // if(token){
-    //     // 把token设置到请求头中
-    // }
+    let token = localStorage.getItem("token")
+    if(token){
+        // 把token设置到请求头中
+        config.headers["X-Nideshop-Token"] = token
+    }
 
     // 需要返回config才能继续发送请求
     return config

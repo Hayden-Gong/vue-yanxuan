@@ -93,6 +93,10 @@ import { GetHomeData } from '@/http/api'
           this.updateIsShowShadow(false)
         }
       }
+    },
+    beforeRouteLeave(to, form, next) {
+      this.updateIsShowShadow(false)
+      next()
     }
   }
 </script>

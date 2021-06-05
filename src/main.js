@@ -4,8 +4,12 @@ import router from './router'
 import store from './store'
 import 'reset-css'
 import '@/vantui'
+// 引入工具集
+import utils from './utils'
 
 Vue.config.productionTip = false
+// 注册工具集
+Vue.prototype.utils = utils
 
 new Vue({
   router,
