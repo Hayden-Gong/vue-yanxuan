@@ -1,5 +1,6 @@
 <template>
     <div class="search-popup">
+        <!-- 搜索框 -->
         <van-search
             v-model="searchVal"
             show-action
@@ -15,17 +16,21 @@
         </van-search>
 
         <!-- 底下组件展示3个界面之一 -->
+
+        <!-- 热门搜索与历史组件 -->
         <HistoryHot
             v-if="blockShow==1"
             :historyKeywordList="historyKeywordList"
             :hotKeywordList="hotKeywordList"
             @tagClick="tagClick"
         />
+        <!-- 搜索提示组件 -->
         <SearchTipsList
             v-else-if="blockShow==2"
             :searchTips="searchTips"
             @cellClick="tagClick"
         />
+        <!-- 搜索列表组件 -->
         <SearchProductList 
             v-else-if="blockShow==3"
             :goodsList="goodsList"
@@ -47,8 +52,9 @@ export default {
     data () {
         return {
             searchVal: '',
-            blockShow: 1,
             placeholderVal: '',
+            // 决定展示的组件
+            blockShow: 1,
             historyKeywordList: [],
             hotKeywordList: [],
             searchTips: [],
@@ -59,7 +65,9 @@ export default {
             // 分类id
             categoryId:0,
             // 排序方式：按照id排序还是按照价格price排序
-            sort:"id"
+            sort:"id",
+            // 防抖定时器
+            timer: null
         }
     },
     created(){
@@ -111,14 +119,19 @@ export default {
         },
         onInput(val){
             this.blockShow = 2
-            // 发送请求 获取搜索提示
-            GetSearchTipsData({
-                keyword:val
-            }).then(res=>{
-                if(res.errno==0){
-                    this.searchTips = res.data
-                }
-            })
+
+            // 防抖
+            if(this.timer) clearTimeout(this.timer)
+            this.timer = setTimeout(() => {
+                // 发送请求 获取搜索提示
+                GetSearchTipsData({
+                    keyword:val
+                }).then(res=>{
+                    if(res.errno==0){
+                        this.searchTips = res.data
+                    }
+                })
+            }, 500);
 
             // 搜索栏为空时返回历史记录页
             if(val=='') this.blockShow = 1

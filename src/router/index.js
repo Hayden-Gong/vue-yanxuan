@@ -98,6 +98,10 @@ const router = new VueRouter({
 //     return
 //   }
 
+//   if(to.path === "/home"){
+  // store["_mutations"]["showshadow/updateIsShowShadow"][0](false);
+// }
+
 //   // 放行 必须调用next()才能继续跳转
 //   next()
 // })

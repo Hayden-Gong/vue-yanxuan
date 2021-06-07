@@ -2,7 +2,7 @@
     <div>
         <ul>
             <li v-for="(item) in goodsList" :key="item.id" @click="goTODetail(item.id)">
-                <img :src="item.list_pic_url || imgSrc" style="display:block;" width="100%" alt="" />
+                <img v-lazy="item.list_pic_url || imgSrc" style="display:block;" width="100%" alt="" />
                 <div class="van-ellipsis">{{item.name}}</div>
                 <div class="price">{{item.retail_price | RMBformat}}</div>
             </li>

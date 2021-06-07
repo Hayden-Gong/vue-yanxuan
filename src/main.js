@@ -1,3 +1,5 @@
+// main.js 程序入口文件，项目中所有页面都会加载它，可初始化vue实例
+
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'

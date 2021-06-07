@@ -76,7 +76,7 @@
           <div class="home_title">{{item.name}}</div>
           <ul class="product_list">
             <li v-for="goods in item.goodsList" :key="goods.id">
-              <img :src="goods.list_pic_url" alt="">
+              <img v-lazy="goods.list_pic_url" alt="">
               <div>{{goods.name}}</div>
               <section>{{goods.retail_price | RMBformat}}</section>
             </li>
@@ -115,19 +115,21 @@ import { GetHomeData } from '@/http/api'
         categoryList: [],
       };
     },
-    created(){
-      GetHomeData().then(res=>{
-        let { banner, channel, brandList, newGoodsList, hotGoodsList, topicList, categoryList } = res.data
-        this.bannerData = banner
-        this.channelData = channel
-        this.brandListData = brandList
-        this.newGoodsList = newGoodsList
-        this.hotGoodsList = hotGoodsList
-        this.topicList = topicList
-        this.categoryList = categoryList
-      }).catch(err=>{
-        console.log(err);
-      })
+    async created(){
+      // 第一个请求 await Promise对象
+      let res = await GetHomeData();
+
+      let { banner, channel, brandList, newGoodsList, hotGoodsList, topicList, categoryList } = res.data
+      this.bannerData = banner
+      this.channelData = channel
+      this.brandListData = brandList
+      this.newGoodsList = newGoodsList
+      this.hotGoodsList = hotGoodsList
+      this.topicList = topicList
+      this.categoryList = categoryList
+      // 第一个请求成功之后，才会发起第二个请求
+      // let res2 = await xxx();
+      // ...
     },
     computed: {
       ...mapState({

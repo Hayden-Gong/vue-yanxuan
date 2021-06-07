@@ -23,7 +23,6 @@ import {
     Field,
     Button,
     Dialog,
-    Lazyload,
     Col,
     Row,
     Divider,
@@ -38,7 +37,8 @@ import {
     Stepper,
     SwipeCell,
     NavBar,
-    TreeSelect
+    TreeSelect,
+    Lazyload
 } from 'vant';
 
 // 引入样式
@@ -68,7 +68,6 @@ Vue.use(Form);
 Vue.use(Field);
 Vue.use(Button);
 Vue.use(Dialog);
-Vue.use(Lazyload);
 Vue.use(Col);
 Vue.use(Row);
 Vue.use(Divider);
@@ -84,3 +83,7 @@ Vue.use(Stepper);
 Vue.use(SwipeCell);
 Vue.use(NavBar);
 Vue.use(TreeSelect);
+Vue.use(Lazyload, {
+    lazyComponent: true, // 设置懒加载
+    loading: require("../assets/loading.gif") // 设置懒加载时的图片
+})
